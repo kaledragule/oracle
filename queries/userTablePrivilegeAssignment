@@ -1,0 +1,11 @@
+set linesize 300
+column USER format a30;
+column USER_TABLES format a30;
+column UT_PRIV format a30;
+select du.username as "USER",
+dtp.table_name as "USER_TABLES",
+dtp.privilege as "UT_PRIV"
+from dba_users du, dba_tab_privs dtp
+where dtp.grantee=du.username
+and du.username = '&username'
+order by du.username, dtp.table_name;

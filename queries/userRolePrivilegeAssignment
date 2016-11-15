@@ -1,0 +1,14 @@
+set linesize 300
+column USER format a30;
+column ROLES format a30;
+column ROLE_TABLES format a30;
+column RT_PRIV format a30;
+select du.username as "USER",
+rtp.role as "ROLES",
+rtp.table_name as "ROLE_TABLES",
+rtp.privilege as "RT_PRIV"
+from dba_users du, dba_role_privs drp, role_tab_privs rtp
+where drp.grantee=du.username
+and rtp.role=drp.granted_role
+and du.username = '&username'
+order by du.username, rtp.role;
