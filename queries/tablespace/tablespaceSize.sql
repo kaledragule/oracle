@@ -1,3 +1,4 @@
+set lines 1000 pages 1000
 SELECT tablespace_name, ROUND(SUM(total_mb)-SUM(free_mb)) CUR_USE_MB, ROUND(SUM(total_mb)) CUR_SZ_MB,
 ROUND((SUM(total_mb)-SUM(free_mb))/SUM(total_mb)*100) CUR_PCT_FULL, ROUND(SUM(max_mb) - (SUM(total_mb)-SUM(free_mb))) FREE_SPACE_MB,
 ROUND(SUM(max_mb)) MAX_SZ_MB, ROUND((SUM(total_mb)-SUM(free_mb))/SUM(max_mb)*100) PCT_FULL
