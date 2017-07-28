@@ -1,0 +1,1 @@
+select pga_target_for_estimate,pga_target_factor,estd_extra_bytes_rw from v$pga_target_advice;
