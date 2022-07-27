@@ -1,5 +1,5 @@
 set lines 1000 pages 1000
-SELECT tablespace_name, ROUND(SUM(total_mb)-SUM(free_mb)) CUR_USE_MB, ROUND(SUM(total_mb)) CUR_SZ_MB,
+SELECT NVL(TO_CHAR(tablespace_name), '      TOTAL') AS tablespace_name, ROUND(SUM(total_mb)-SUM(free_mb)) CUR_USE_MB, ROUND(SUM(total_mb)) CUR_SZ_MB,
 ROUND((SUM(total_mb)-SUM(free_mb))/SUM(total_mb)*100) CUR_PCT_FULL, ROUND(SUM(max_mb) - (SUM(total_mb)-SUM(free_mb))) FREE_SPACE_MB,
 ROUND(SUM(max_mb)) MAX_SZ_MB, ROUND((SUM(total_mb)-SUM(free_mb))/SUM(max_mb)*100) PCT_FULL
 FROM (
@@ -19,5 +19,5 @@ FROM (
   SUM(DECODE(maxbytes,0,bytes, maxbytes))/1024/1024 MAX_MB
   FROM dba_temp_files
   GROUP BY tablespace_name)
-GROUP BY tablespace_name
+GROUP BY ROLLUP (tablespace_name)
 /
